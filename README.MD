@@ -111,6 +111,7 @@ DB_HOST=localhost
 DB_USER=your_username
 DB_PASSWORD=your_password
 DB_NAME=your_database_name
+SALT_ROUNDS=any_number
 ```
 
 4. Run database migrations
