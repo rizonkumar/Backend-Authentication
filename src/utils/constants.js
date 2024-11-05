@@ -1,4 +1,3 @@
-// utils/constants.js
 const MESSAGES = {
   SUCCESS: {
     SIGNUP: "Successfully created a new user",
