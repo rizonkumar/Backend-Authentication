@@ -1,10 +1,8 @@
-const { MESSAGES } = require("../constants");
-
-const success = {
+const SuccessResponse = {
   success: true,
-  message: MESSAGES.SUCCESS.DEFAULT,
+  message: "",
   data: {},
   error: {},
 };
 
-module.exports = success;
+module.exports = SuccessResponse;
