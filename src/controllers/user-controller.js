@@ -21,4 +21,18 @@ async function signUp(req, res) {
   }
 }
 
-module.exports = { signUp };
+async function signIn(req, res) {
+  try {
+    const user = await UserService.signin({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    SuccessResponse.data = user;
+    return res.status(StatusCodes.OK).json(SuccessResponse);
+  } catch (error) {
+    ErrorResponse.error = error;
+    return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
+  }
+}
+
+module.exports = { signUp, signIn };
