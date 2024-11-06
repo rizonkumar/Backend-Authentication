@@ -2,8 +2,8 @@ const { StatusCodes } = require("http-status-codes");
 const { UserRepository } = require("../repositories");
 const AppError = require("../utils/common/app-error");
 const { MESSAGES } = require("../utils/constants");
-
 const userRepo = new UserRepository();
+const { Auth } = require("../utils/common");
 
 async function create(data) {
   try {
@@ -41,4 +41,25 @@ async function create(data) {
   }
 }
 
-module.exports = { create };
+async function signin(data) {
+  try {
+    const user = await userRepo.getUserByEmail(data.email);
+    if (!user) {
+      throw new AppError(MESSAGES.ERROR.USER_NOT_FOUND, StatusCodes.NOT_FOUND);
+    }
+    const passwordMatch = Auth.checkPassword(data.password, user.password);
+    if (!passwordMatch) {
+      throw new AppError(MESSAGES.ERROR.WRONG_PASSWORD, StatusCodes.NOT_FOUND);
+    }
+    const jwt = Auth.createToken({ id: user.id, email: user.email });
+    return jwt;
+  } catch (error) {
+    console.log(error);
+    throw new AppError(
+      MESSAGES.ERROR.DEFAULT,
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
+module.exports = { create, signin };

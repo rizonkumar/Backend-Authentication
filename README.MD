@@ -112,6 +112,8 @@ DB_USER=your_username
 DB_PASSWORD=your_password
 DB_NAME=your_database_name
 SALT_ROUNDS=any_number
+JWT_SECRET=your_jwt_secret_key
+JWT_EXPIRY=expiry_time
 ```
 
 4. Run database migrations

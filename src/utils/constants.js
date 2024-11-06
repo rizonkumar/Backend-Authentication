@@ -9,6 +9,7 @@ const MESSAGES = {
     EMAIL_EXISTS: "Email already registered",
     USER_NOT_FOUND: "User not found",
     INVALID_EMAIL: "Please enter a valid email",
+    WRONG_PASSWORD: "Password you entered is wrong. Please try again",
   },
 };
 
