@@ -31,7 +31,10 @@ async function signIn(req, res) {
     return res.status(StatusCodes.OK).json(SuccessResponse);
   } catch (error) {
     ErrorResponse.error = error;
-    return res.status(StatusCodes.UNAUTHORIZED).json(ErrorResponse);
+    ErrorResponse.message = error.message || MESSAGES.ERROR.DEFAULT;
+    return res
+      .status(error.statusCode || StatusCodes.UNAUTHORIZED)
+      .json(ErrorResponse);
   }
 }
 
