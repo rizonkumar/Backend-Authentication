@@ -8,6 +8,7 @@ router.post(
   AuthRequestMiddleware.validateAuthRequest,
   UserController.signUp
 );
+
 router.post(
   "/signin",
   AuthRequestMiddleware.validateAuthRequest,
