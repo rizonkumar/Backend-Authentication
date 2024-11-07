@@ -59,4 +59,37 @@ async function signin(data) {
   }
 }
 
-module.exports = { create, signin };
+async function isAuthenticated(token) {
+  try {
+    if (!token) {
+      throw new AppError(
+        MESSAGES.ERROR.TOKEN_NOT_FOUND,
+        StatusCodes.UNAUTHORIZED
+      );
+    }
+    const response = Auth.verifyToken(token);
+    const user = await userRepo.get(response.id);
+    if (!user) {
+      throw new AppError(MESSAGES.ERROR.USER_NOT_FOUND, StatusCodes.NOT_FOUND);
+    }
+    return user.id;
+  } catch (error) {
+    if (error instanceof AppError) throw error;
+    if (error.name === "JsonWebTokenError") {
+      throw new AppError(
+        MESSAGES.ERROR.INVALID_TOKEN,
+        StatusCodes.UNAUTHORIZED
+      );
+    }
+    if (error.name === "TokenExpiredError") {
+      throw new AppError(
+        MESSAGES.ERROR.TOKEN_EXPIRED,
+        StatusCodes.UNAUTHORIZED
+      );
+    }
+    console.log(error);
+    throw error;
+  }
+}
+
+module.exports = { create, signin, isAuthenticated };
