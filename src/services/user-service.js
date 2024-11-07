@@ -81,6 +81,12 @@ async function isAuthenticated(token) {
         StatusCodes.UNAUTHORIZED
       );
     }
+    if (error.name === "TokenExpiredError") {
+      throw new AppError(
+        MESSAGES.ERROR.TOKEN_EXPIRED,
+        StatusCodes.UNAUTHORIZED
+      );
+    }
     console.log(error);
     throw error;
   }

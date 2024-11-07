@@ -16,6 +16,7 @@ const MESSAGES = {
       "Something went wrong while authenticating your password. Please try again later",
     TOKEN_NOT_FOUND: "JWT Token is missing in the request",
     INVALID_TOKEN: "Invalid JWT Token",
+    TOKEN_EXPIRED: "JWT Token has expired",
   },
 };
 
