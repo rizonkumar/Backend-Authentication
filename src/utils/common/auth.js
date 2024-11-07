@@ -1,11 +1,10 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { StatusCodes } = require("http-status-codes");
-// const AppError = require("../utils/common/app-error");
 const { MESSAGES } = require("../constants");
 const { ServerConfig } = require("../../config");
 
-async function checkPassword(plainPassword, hashedPassword) {
+function checkPassword(plainPassword, hashedPassword) {
   try {
     return bcrypt.compareSync(plainPassword, hashedPassword);
   } catch (error) {
@@ -16,7 +15,7 @@ async function checkPassword(plainPassword, hashedPassword) {
   }
 }
 
-async function createToken(input) {
+function createToken(input) {
   try {
     return jwt.sign(input, ServerConfig.JWT_SECRET, {
       expiresIn: ServerConfig.JWT_EXPIRY,

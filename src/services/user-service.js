@@ -48,17 +48,14 @@ async function signin(data) {
       throw new AppError(MESSAGES.ERROR.USER_NOT_FOUND, StatusCodes.NOT_FOUND);
     }
     const passwordMatch = Auth.checkPassword(data.password, user.password);
+    console.log("passwordMatch", passwordMatch);
     if (!passwordMatch) {
       throw new AppError(MESSAGES.ERROR.WRONG_PASSWORD, StatusCodes.NOT_FOUND);
     }
     const jwt = Auth.createToken({ id: user.id, email: user.email });
     return jwt;
   } catch (error) {
-    console.log(error);
-    throw new AppError(
-      MESSAGES.ERROR.DEFAULT,
-      StatusCodes.INTERNAL_SERVER_ERROR
-    );
+    throw error;
   }
 }
 
